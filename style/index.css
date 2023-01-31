@@ -1,0 +1,20 @@
+main {
+    margin: 5px;
+}
+
+.hide {
+    display: none;
+}
+
+.content-container{
+    display: flex;
+    height: 250px;
+}
+
+.content-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 33%;
+    flex-direction: column;
+}

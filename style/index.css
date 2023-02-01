@@ -1,5 +1,8 @@
 main {
     margin: 5px;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
 }
 
 .hide {
@@ -17,4 +20,26 @@ main {
     align-items: center;
     flex-basis: 33%;
     flex-direction: column;
+}
+
+img {
+    max-width: 200px;
+}
+
+.title {
+    text-align: center;
+}
+
+h2 {
+    background-color: rgb(255, 191, 117);
+}
+
+.container{
+    margin-top: 100px;
+    text-align: center;
+    border: solid 1px rgb(0, 0, 0);
+    box-shadow: rgba(0,0,0, 0.35) 0px 5px 15px;
+    padding: 25px;
+    width: 600px;
+    background-color: rgb(255, 234, 217);
 }

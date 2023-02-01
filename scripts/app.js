@@ -1,75 +1,24 @@
 import {
-	indexCharacters,
-	showCharacter,
-	updateCharacter,
-	deleteCharacter,
-	indexCampaign,
+	createConsole,
+	indexConsole,
 	signUp,
 	signIn,
-	updateCampaign,
-	showCampaign,
-	deleteCampaign,
+	updateConsole,
+	showConsole,
+	deleteConsole,
 } from './api.js'
+
 import {
-	onIndexCharacterSuccess,
-	onFailure,
-	onShowCharacterSuccess,
-	onUpdateCharacterSuccess,
-	onDeleteCharacterSuccess,
-	onSignUpSuccess,
 	onSignInSuccess,
-	onIndexCampaignSuccess,
-	onUpdateCampaignSuccess,
-	onShowCampaignSuccess,
-	onDeleteCampaignSuccess,
+	onIndexConsoleSuccess,
+	onShowConsoleSuccess,
 } from './ui.js'
 
-const indexCharactersContainer = document.querySelector('#index-character-container')
-const indexCampaignContainer = document.querySelector('#index-campaign-container')
-const showCharacterContainer = document.querySelector('#show-character-container')
-const showCampaignContainer = document.querySelector('#show-campaign-container')
+const indexConsoleContainer = document.querySelector('#index-console-container')
+const showConsoleContainer = document.querySelector('#show-console-container')
 const signUpContainer = document.querySelector('#sign-up-form-container')
 const signInContainer = document.querySelector('#sign-in-form-container')
-
-// Character actions
-indexCharactersContainer.addEventListener('click', (event) => {
-	const id = event.target.getAttribute('data-id')
-
-	if (!id) return
-
-	showCharacter(id)
-		.then((res) => res.json())
-		.then((res) => {
-			onShowCharacterSuccess(res.character)
-		})
-		.catch(onFailure)
-})
-
-showCharacterContainer.addEventListener('submit', (event) => {
-	event.preventDefault()
-	const id = event.target.getAttribute('data-id')
-	const characterData = {
-		character: {
-			firstName: event.target['firstName'].value,
-			lastName: event.target['lastName'].value,
-			strength: event.target['strength'].value,
-			class: event.target['class'].value,
-		},
-	}
-	updateCharacter(characterData, id)
-		.then(onUpdateCharacterSuccess)
-		.catch(onFailure)
-})
-
-showCharacterContainer.addEventListener('click', (event) => {
-	const id = event.target.getAttribute('data-id')
-
-	if (!id) return
-
-	deleteCharacter(id)
-		.then(onDeleteCharacterSuccess)
-		.catch(onFailure)
-})
+const createConsoleContainer = document.querySelector('#create-console-form-container')
 
 // User Actions
 signUpContainer.addEventListener('submit', (event) => {
@@ -80,7 +29,7 @@ signUpContainer.addEventListener('submit', (event) => {
 			password: event.target['password'].value,
 		},
 	}
-	signUp(userData).then(onSignUpSuccess).catch(onFailure)
+	signUp(userData)
 })
 
 signInContainer.addEventListener('submit', (event) => {
@@ -94,48 +43,49 @@ signInContainer.addEventListener('submit', (event) => {
 	signIn(userData)
 		.then((res) => res.json())
 		.then((res) => onSignInSuccess(res.token))
-		.then(indexCampaign)
+		.then(indexConsole)
 		.then((res) => res.json())
-		.then((res) => onIndexCampaignSuccess(res.campaigns))
-		.then(indexCharacters)
-		.then((res) => res.json())
-		.then((res) => onIndexCharacterSuccess(res.characters))
-		.catch(onFailure)
+		.then((res) => onIndexConsoleSuccess(res.consoles))
 })
 
-// Campaign Actions
-indexCampaignContainer.addEventListener('click', (event) => {
+// Console Actions
+indexConsoleContainer.addEventListener('click', (event) => {
 	const id = event.target.getAttribute('data-id')
 
 	if (!id) return
 
-	showCampaign(id)
+	showConsole(id)
 		.then((res) => res.json())
 		.then((res) => {
-			onShowCampaignSuccess(res.campaign)
+			onShowConsoleSuccess(res.console)
 		})
-		.catch(onFailure)
 })
 
-showCampaignContainer.addEventListener('submit', (event) => {
+showConsoleContainer.addEventListener('submit', (event) => {
 	event.preventDefault()
 	const id = event.target.getAttribute('data-id')
-	const campaignData = {
-		campaign: {
+	const consoleData = {
+		console: {
 			name: event.target['name'].value
 		},
 	}
-	updateCampaign(campaignData, id)
-		.then(onUpdateCampaignSuccess)
-		.catch(onFailure)
+	updateConsole(consoleData, id)
 })
 
-showCampaignContainer.addEventListener('click', (event) => {
+showConsoleContainer.addEventListener('click', (event) => {
 	const id = event.target.getAttribute('data-id')
-
 	if (!id) return
+	deleteConsole(id)
+})
 
-	deleteCampaign(id)
-		.then(onDeleteCampaignSuccess)
-		.catch(onFailure)
+createConsoleContainer.addEventListener('submit', (event) => {
+	event.preventDefault()
+	const consoleData = {
+		console: {
+			name: event.target['name'].value,
+		},
+	}
+	console.log(consoleData)
+	createConsole(consoleData)
+	
 })

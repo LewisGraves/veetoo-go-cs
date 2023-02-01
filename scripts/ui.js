@@ -1,119 +1,69 @@
 import { store } from './store.js'
 
-const indexCharactersContainer = document.querySelector('#index-character-container')
-const messageContainer = document.querySelector('#message-container')
-const showCharacterContainer = document.querySelector('#show-character-container')
-const showCampaignContainer = document.querySelector('#show-campaign-container')
+const showConsoleContainer = document.querySelector('#show-console-container')
 const authContainer = document.querySelector('#auth-container')
 const indexContainer = document.querySelector('#index-container')
-const indexCampaignsContainer = document.querySelector('#index-campaign-container')
+const indexConsolesContainer = document.querySelector('#index-console-container')
 
-// Character Actions
-export const onIndexCharacterSuccess = (characters) => {
-	characters.forEach((character) => {
-		const div = document.createElement('div')
-        div.classList.add('content-card')
-		div.innerHTML = `
-            <h3>${character.firstName} ${character.lastName}</h3>
-            <button type="button" class="btn btn-primary" data-id="${character._id}">Show Character</button>
-        `
-		indexCharactersContainer.appendChild(div)
-	})
-}
 
-export const onFailure = (error) => {
-    messageContainer.innerHTML = `
-        <h3>You've encountered an error. Try again later</h3>
-        <p>${error}</p>
-    `
-}
-
-export const onShowCharacterSuccess = (character) => {
-    indexContainer.classList.add('hide')
-    showCharacterContainer.classList.remove('hide')
-	const div = document.createElement('div')
-	div.innerHTML = `
-        <div class="row">
-            <div class="col">
-                <h2>Character</h2>
-                <h3>${character.firstName} ${character.lastName}</h3>
-                <p>${character.class}</p>
-                <p>${character.strength}</p>
-            </div>
-            <div class="col">
-                <form data-id="${character._id}">
-                    <input class="form-control"class="form-control" type="text" name="firstName" value="${character.firstName}">
-                    <input class="form-control" type="text" name="lastName" value="${character.lastName}">
-                    <input class="form-control" type="text" name="class" value="${character.class}">
-                    <input class="form-control" type="number" name="strength" value="${character.strength}">
-                    <button type="submit" class="btn btn-warning">Update Character</button>
-                </form>
-                <button type="button" class="btn btn-danger" data-id="${character._id}">Delete Character</button>
-            </div>
-        </div>
-    `
-	showCharacterContainer.appendChild(div)
-}
-
-export const onUpdateCharacterSuccess = () => {
-	messageContainer.innerHTML = 'You have updated a character'
-}
-
-export const onDeleteCharacterSuccess = () => {
-	messageContainer.innerHTML = 'You have deleted a character'
-}
-
-// User Actions
-export const onSignUpSuccess = () => {
-    messageContainer.innerHTML = 'You\'ve created a new user! Now Sign In'
-}
-
+// // User Actions
 export const onSignInSuccess = (userToken) => {
-    messageContainer.innerHTML = ''
     store.userToken = userToken
     authContainer.classList.add('hide')
     indexContainer.classList.remove('hide')
 }
 
-// Campaign Actions
-export const onIndexCampaignSuccess = (campaigns) => {
-    campaigns.forEach((campaign) => {
+// Console Actions
+export const onIndexConsoleSuccess = (consoles) => {
+    consoles.forEach((console) => {
 		const div = document.createElement('div')
         div.classList.add('content-card')
 		div.innerHTML = `
-            <h3>${campaign.name}</h3>
-            <button type="button" class="btn btn-primary" data-id="${campaign._id}">Show Campaign</button>
+            <h3>${console.name}</h3>
+            <img src="${console.image}" alt="${console.name}">
+            <button type="button" class="btn btn-primary" data-id="${console._id}">Show Console</button>
         `
-		indexCampaignsContainer.appendChild(div)
+		indexConsolesContainer.appendChild(div)
 	})
 }
 
-export const onShowCampaignSuccess = (campaign) => {
+
+export const onShowConsoleSuccess = (console) => {
 	indexContainer.classList.add('hide')
-	showCampaignContainer.classList.remove('hide')
+	showConsoleContainer.classList.remove('hide')
 	const div = document.createElement('div')
 	div.innerHTML = `
         <div class="row">
             <div class="col">
-                <h2>Campaign</h2>
-                <h3>${campaign.name}</h3>
+                <h2>Console</h2>
+                <h3>${console.name}</h3>
+                <img src="${console.image}" alt="${console.name}">
+                <p>Model:${console.model}</p>
+                <p>Manufacturer:${console.manufacturer}</p>
+                <p>Generation:${console.generation}</p>
+                <p>Release Date:${console.releaseDate}</p>
+                <p>Region:${console.region}</p>
+                <p>Backwards Compatability:${console.backwardsCompatibility}</p>
+                <p>Condition:${console.working}</p>
+                <p>Games:${JSON.stringify(console.games)}</p>
+
             </div>
             <div class="col">
-                <form data-id="${campaign._id}">
-                    <input class="form-control"class="form-control" type="text" name="name" value="${campaign.name}">
-                    <button type="submit" class="btn btn-warning">Update Campaign</button>
+                <form data-id="${console._id}">
+                    <input class="form-control" type="text" name="name" value="name">
+                    <input class="form-control" type="text" name="image" value="image url">
+                    <input class="form-control" type="text" name="model" value="model">
+                    <input class="form-control" type="text" name="manufacturer" value="manufacturer">
+                    <input class="form-control" type="text" name="generation" value="generation">
+                    <input class="form-control" type="text" name="releaseDate" value="release date">
+                    <input class="form-control" type="text" name="region" value="region">
+                    <input class="form-control" type="text" name="backwards ompatibility" value="backwards compatibility">
+                    <input class="form-control" type="text" name="working" value="working?">
+                    <button type="submit" class="btn btn-warning">Update Console</button>
                 </form>
-                <button type="button" class="btn btn-danger" data-id="${campaign._id}">Delete Campaign</button>
+                <button type="button" class="btn btn-danger" data-id="${console._id}">Delete Console</button>
             </div>
         </div>
     `
-	showCampaignContainer.appendChild(div)
-}
-
-export const onUpdateCampaignSuccess = () => {
-	messageContainer.innerHTML = 'You have updated a campaign'
-}
-
-export const onDeleteCampaignSuccess = () => {
-    messageContainer.innerHTML = 'You have deleted a campaign'
+	showConsoleContainer.appendChild(div)
 }

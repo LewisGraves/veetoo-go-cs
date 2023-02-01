@@ -23,63 +23,25 @@ export const signIn = (data) => {
 	})
 }
 
-// Character Actions
-export const indexCharacters = () => {
-	return fetch(`http://localhost:8000/characters`, {
-		headers: {
-			'Authorization': `Bearer ${store.userToken}`,
-		},
-	})
-}
-
-export const showCharacter = (id) => {
-	return fetch(`http://localhost:8000/characters/${id}`, {
-		headers: {
-			Authorization: `Bearer ${store.userToken}`,
-		},
-	})
-}
-
-export const updateCharacter = (data, id) => {
-	return fetch(`http://localhost:8000/characters/${id}`, {
-		method: 'PATCH',
-		headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${store.userToken}`,
-		},
-		body: JSON.stringify(data),
-	})
-}
-
-export const deleteCharacter = (id) => {
-	return fetch(`http://localhost:8000/characters/${id}`, {
-		method: 'DELETE',
-		headers: {
-			Authorization: `Bearer ${store.userToken}`,
-		},
-	})
-}
-
-// Campaign Actions
-export const indexCampaign = () => {
-	return fetch('http://localhost:8000/campaigns', {
+// Console Actions
+export const indexConsole = () => {
+	return fetch('http://localhost:8000/consoles', {
 		headers: {
 			'Authorization': `Bearer ${store.userToken}`
 		}
 	})
 }
 
-export const showCampaign = (id) => {
-	return fetch(`http://localhost:8000/campaigns/${id}`, {
+export const showConsole = (id) => {
+	return fetch(`http://localhost:8000/consoles/${id}`, {
 		headers: {
 			Authorization: `Bearer ${store.userToken}`,
 		},
 	})
 }
 
-export const updateCampaign = (data, id) => {
-	return fetch(`http://localhost:8000/campaigns/${id}`, {
+export const updateConsole = (data, id) => {
+	return fetch(`http://localhost:8000/consoles/${id}`, {
 		method: 'PATCH',
 		headers: {
 			Accept: 'application/json',
@@ -90,11 +52,23 @@ export const updateCampaign = (data, id) => {
 	})
 }
 
-export const deleteCampaign = (id) => {
-	return fetch(`http://localhost:8000/campaigns/${id}`, {
+export const deleteConsole = (id) => {
+	return fetch(`http://localhost:8000/consoles/${id}`, {
 		method: 'DELETE',
 		headers: {
 			Authorization: `Bearer ${store.userToken}`,
 		},
+	})
+}
+
+export const createConsole = (data) => {
+	return fetch('http://localhost:8000/consoles', {
+		method: 'POST',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${store.userToken}`,
+		},
+		body: JSON.stringify(data),
 	})
 }

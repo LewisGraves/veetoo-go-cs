@@ -85,7 +85,5 @@ createConsoleContainer.addEventListener('submit', (event) => {
 			name: event.target['name'].value,
 		},
 	}
-	console.log(consoleData)
 	createConsole(consoleData)
-	
 })
